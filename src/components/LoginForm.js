@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import loginService from "../services/login.js";
 import blogService from "../services/blogs.js";
 
-const LoginForm = ({setErrorMessage}) => {
+const LoginForm = ({ setErrorMessage }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      blogService.setToken(user.token);
+    }
+  }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -27,6 +36,21 @@ const LoginForm = ({setErrorMessage}) => {
       }, 5000);
     }
   };
+
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    setUser(null);
+    try {
+      window.localStorage.removeItem("loggedBlogUser");
+    } catch (exception) {
+      setErrorMessage("something went wrong with logging out");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
+
+  const logoutButton = () => <button onClick={handleLogout}>logout</button>;
 
   const loginForm = () => (
     <div>
@@ -61,6 +85,7 @@ const LoginForm = ({setErrorMessage}) => {
       ) : (
         <div>
           <p>{user.name} logged in</p>
+          {logoutButton()}
         </div>
       )}
     </div>
