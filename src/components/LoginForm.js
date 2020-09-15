@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import loginService from "../services/login.js";
 import blogService from "../services/blogs.js";
 
-const LoginForm = ({ setErrorMessage }) => {
+const LoginForm = ({ setErrorMessage, user, setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
-    }
-  }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -62,6 +52,7 @@ const LoginForm = ({ setErrorMessage }) => {
             value={username}
             name="username"
             onChange={({ target }) => setUsername(target.value)}
+            autoComplete={true}
           />
         </div>
         <div>
@@ -71,6 +62,7 @@ const LoginForm = ({ setErrorMessage }) => {
             value={password}
             name="password"
             onChange={({ target }) => setPassword(target.value)}
+            autoComplete={true}
           />
         </div>
         <button type="submit">login</button>
