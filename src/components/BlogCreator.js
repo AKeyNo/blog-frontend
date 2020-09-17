@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import blogService from "../services/blogs.js";
+import Toasts from "./CustomToasts";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,29 +21,13 @@ const BlogCreator = ({ user, blogs, setBlogs }) => {
         user,
       });
 
-      toast.success(`Sucessfully added ${title}!`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(`Sucessfully added ${title}!`, Toasts.defaultToast);
       setTitle("");
       setAuthor("");
       setURL("");
       setBlogs(blogs.concat(tempBlog));
     } catch (exception) {
-      toast.error(`Invalid blog. Please try again.`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(`Invalid blog. Please try again.`, Toasts.defaultToast);
     }
   };
 
