@@ -27,7 +27,7 @@ const App = () => {
     <div>
       <Login user={user} setUser={setUser} />
       {user !== null ? (
-        <BlogCreator ssetUser={setUser} blogs={blogs} setBlogs={setBlogs}/>
+        <BlogCreator blogs={blogs} setBlogs={setBlogs}/>
       ) : (
         (null)
       )}

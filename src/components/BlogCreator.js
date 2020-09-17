@@ -5,7 +5,7 @@ import Toasts from "./CustomToasts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogCreator = ({ user, blogs, setBlogs }) => {
+const BlogCreator = ({ blogs, setBlogs }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setURL] = useState("");
