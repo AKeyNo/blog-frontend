@@ -3,12 +3,10 @@ import Blog from "./components/Blog";
 import Login from "./components/LoginForm";
 import BlogCreator from "./components/BlogCreator";
 import blogService from "./services/blogs";
-import Notification from "./components/Notification";
 import "./App.css";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -27,10 +25,9 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={errorMessage} />
-      <Login setErrorMessage={setErrorMessage} user={user} setUser={setUser} />
+      <Login user={user} setUser={setUser} />
       {user !== null ? (
-        <BlogCreator setErrorMessage={setErrorMessage} setUser={setUser} blogs={blogs} setBlogs={setBlogs}/>
+        <BlogCreator ssetUser={setUser} blogs={blogs} setBlogs={setBlogs}/>
       ) : (
         (null)
       )}

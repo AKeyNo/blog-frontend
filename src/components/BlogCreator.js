@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import blogService from "../services/blogs.js";
 
-const BlogCreator = ({ setErrorMessage, user, blogs, setBlogs }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const BlogCreator = ({ user, blogs, setBlogs }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setURL] = useState("");
@@ -17,20 +20,35 @@ const BlogCreator = ({ setErrorMessage, user, blogs, setBlogs }) => {
         user,
       });
 
+      toast.success(`Sucessfully added ${title}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       setTitle("");
       setAuthor("");
       setURL("");
       setBlogs(blogs.concat(tempBlog));
     } catch (exception) {
-      setErrorMessage("invalid blog");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      toast.error(`Invalid blog. Please try again.`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   return (
     <div>
+      <ToastContainer/>
       <form onSubmit={addBlog}>
         <div>
           title:

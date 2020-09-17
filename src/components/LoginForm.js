@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import loginService from "../services/login.js";
 import blogService from "../services/blogs.js";
 
-const LoginForm = ({ setErrorMessage, user, setUser }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const LoginForm = ({ user, setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,17 +16,30 @@ const LoginForm = ({ setErrorMessage, user, setUser }) => {
         username,
         password,
       });
-
+      toast.success(`Sucessfully logged in as ${username}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
       setUsername("");
       setPassword("");
     } catch (exception) {
-      setErrorMessage("wrong credentials");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      toast.error("Invalid credentials. Please try again.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -32,11 +48,25 @@ const LoginForm = ({ setErrorMessage, user, setUser }) => {
     setUser(null);
     try {
       window.localStorage.removeItem("loggedBlogUser");
+      toast.success(`Sucessfully logged out as ${username}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (exception) {
-      setErrorMessage("something went wrong with logging out");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      toast.error(`Something went wrong with logging out.`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -72,6 +102,7 @@ const LoginForm = ({ setErrorMessage, user, setUser }) => {
 
   return (
     <div>
+      <ToastContainer />
       {user === null ? (
         loginForm()
       ) : (
