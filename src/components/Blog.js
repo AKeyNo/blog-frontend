@@ -1,7 +1,23 @@
-import React from 'react'
+import React from "react";
 
-const Blog = ({blog}) => {
-    return <div>{blog.title} {blog.author}</div>
-}
+const Blog = ({ blog }) => {
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: "solid",
+    borderWidth: 1,
+    marginBottom: 5,
+  };
 
-export default Blog
+  return (
+    <div style={blogStyle}>
+      <div>
+        {blog.title} by {blog.author}
+      </div>
+      <div>{blog.url}</div>
+      <div>likes: {blog.likes}</div>
+    </div>
+  );
+};
+
+export default Blog;
