@@ -17,14 +17,20 @@ const LoginForm = ({ user, setUser }) => {
         username,
         password,
       });
-      toast.success(`Sucessfully logged in as ${username}!`, Toasts.defaultToast);
+      toast.success(
+        `Sucessfully logged in as ${username}!`,
+        Toasts.defaultToast
+      );
       window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
       setUsername("");
       setPassword("");
     } catch (exception) {
-      toast.error('Invalid credentials. Please try again.', Toasts.defaultToast);
+      toast.error(
+        "Invalid credentials. Please try again.",
+        Toasts.defaultToast
+      );
     }
   };
 
@@ -35,7 +41,10 @@ const LoginForm = ({ user, setUser }) => {
       window.localStorage.removeItem("loggedBlogUser");
       toast.success(`Sucessfully logged out!`, Toasts.defaultToast);
     } catch (exception) {
-      toast.error(`Something went wrong with logging out.`, Toasts.defaultToast);
+      toast.error(
+        `Something went wrong with logging out.`,
+        Toasts.defaultToast
+      );
     }
   };
 
@@ -71,13 +80,12 @@ const LoginForm = ({ user, setUser }) => {
 
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       {user === null ? (
         loginForm()
       ) : (
         <div>
-          <p>{user.name} logged in</p>
-          {logoutButton()}
+          <p>{user.name} logged in</p> {logoutButton()}
         </div>
       )}
     </div>

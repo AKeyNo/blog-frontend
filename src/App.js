@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import Login from "./components/LoginForm";
 import BlogCreator from "./components/BlogCreator";
+import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
-import loginService from "./services/login";
 
 import "./App.css";
 
@@ -31,14 +31,13 @@ const App = () => {
     setBlogs(blogs.concat(newBlog));
   };
 
-  const logUser = async (userObj) => {
-    const loggedUser = await Login;
-  };
-
   return (
     <div>
       <Login user={user} setUser={setUser} />
-      {user !== null ? <BlogCreator createBlog={createBlog} /> : null}
+      <h1>create blog</h1>
+      <Togglable buttonLabel="create blog">
+        {user !== null ? <BlogCreator createBlog={createBlog} /> : null}
+      </Togglable>
       <h2>blogs</h2>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
