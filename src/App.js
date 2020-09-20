@@ -3,6 +3,8 @@ import Blog from "./components/Blog";
 import Login from "./components/LoginForm";
 import BlogCreator from "./components/BlogCreator";
 import blogService from "./services/blogs";
+import loginService from "./services/login";
+
 import "./App.css";
 
 const App = () => {
@@ -23,14 +25,20 @@ const App = () => {
     }
   }, []);
 
+  const createBlog = async (blogObj) => {
+    const newBlog = await blogService.create(blogObj);
+
+    setBlogs(blogs.concat(newBlog));
+  };
+
+  const logUser = async (userObj) => {
+    const loggedUser = await Login;
+  };
+
   return (
     <div>
       <Login user={user} setUser={setUser} />
-      {user !== null ? (
-        <BlogCreator blogs={blogs} setBlogs={setBlogs}/>
-      ) : (
-        (null)
-      )}
+      {user !== null ? <BlogCreator createBlog={createBlog} /> : null}
       <h2>blogs</h2>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />

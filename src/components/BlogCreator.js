@@ -5,7 +5,7 @@ import Toasts from "./CustomToasts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogCreator = ({ blogs, setBlogs }) => {
+const BlogCreator = ({ createBlog }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setURL] = useState("");
@@ -14,18 +14,16 @@ const BlogCreator = ({ blogs, setBlogs }) => {
     event.preventDefault();
 
     try {
-      const tempBlog = await blogService.create({
+      await createBlog({
         title,
         author,
         url,
-        user,
       });
 
       toast.success(`Sucessfully added ${title}!`, Toasts.defaultToast);
       setTitle("");
       setAuthor("");
       setURL("");
-      setBlogs(blogs.concat(tempBlog));
     } catch (exception) {
       toast.error(`Invalid blog. Please try again.`, Toasts.defaultToast);
     }
