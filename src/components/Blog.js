@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import blogService from "../services/blogs";
 
 const Blog = ({ blog }) => {
@@ -19,12 +19,15 @@ const Blog = ({ blog }) => {
 
   return (
     <div style={blogStyle}>
-      <div>
+      <div className="titleAndAuthor">
         {blog.title} by {blog.author}
       </div>
       <div>{blog.url}</div>
-      <div key={blog}>
-        likes: {blogLikes} <button onClick={like}>like</button>
+      <div key={blog} className={"likeSection"}>
+        likes: {blogLikes}{" "}
+        <button onClick={like} className={"likeButton"}>
+          like
+        </button>
       </div>
     </div>
   );
